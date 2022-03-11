@@ -1,13 +1,13 @@
 import React from "react";
-import ticketsImage from "./../img/tickets.png";
+
 
 function Header() {
     return (
         <React.Fragment>
-            <h1>Merch Site</h1>
-            <img src={ticketsImage} alt="A set of tickets" />
+            <h1>Merch-Site</h1>
         </React.Fragment>
     );
+
 }
 
 export default Header;

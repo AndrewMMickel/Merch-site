@@ -1,14 +1,25 @@
 import React from "react";
-import Header from "./Header";
-import ItemControl from "./ItemControl";
+import Item from "./Item";
+import PropTypes from "prop-types";
 
-function App() {
+function ItemList(props) {
     return (
         <React.Fragment>
-            <Header />
-            <ItemControl />
+            {props.itemList.map((item, index) =>
+                <Item
+                    content={item}
+                    position={index}
+                    method={props.onDecrementItemQuantity}
+                    key={item.id}
+                />
+
+            )}
         </React.Fragment>
     );
 }
 
-export default App;
+ItemList.propTypes = {
+    itemList: PropTypes.array
+};
+
+export default ItemList;
