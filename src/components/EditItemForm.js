@@ -7,7 +7,7 @@ function EditItemForm(props) {
 
     function handleEditItemFormSubmission(event) {
         event.preventDefault();
-        props.onItemEdit({
+        props.onEditItem({
             name: event.target.name.value,
             quantity: event.target.quantity.value,
             price: event.target.price.value,
