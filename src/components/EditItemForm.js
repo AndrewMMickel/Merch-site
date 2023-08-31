@@ -18,9 +18,13 @@ function EditItemForm(props) {
 
     return (
         <React.Fragment>
+            <h3>Item name: {item.name} - Quantity: {item.quantity}</h3>
+            <p>Price: <em>{item.price}</em></p>
+            <p>Description: <em>{item.description}</em></p>
             <ReusableForm
                 formSubmissionHandler={handleEditItemFormSubmission}
-                buttonText="Update Form" />
+                buttonText="Update Form"
+                item={item} />
         </React.Fragment>
     );
 }

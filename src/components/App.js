@@ -1,7 +1,7 @@
 import React from "react";
 import Header from "./Header";
 import ItemControl from "./ItemControl";
-
+import '../App.css';
 class App extends React.Component {
 
     constructor(props) {

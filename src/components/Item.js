@@ -10,7 +10,7 @@ function Item(props) {
     }
     return (
         <React.Fragment>
-            <div onClick={() => props.whenItemClicked(props.item.id)} key={props.item.id}>
+            <div onClick={() => props.whenItemClicked(props.item.id)} key={props.item.id} className="item-comp">
                 <h3>product Name: {props.item.name}</h3>
                 <p>Short description: {props.item.description}</p>
                 <p>Amount: {parseInt(props.item.quantity)}</p>

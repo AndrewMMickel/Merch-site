@@ -106,7 +106,7 @@ class ItemControl extends React.Component {
         return (
             <React.Fragment>
                 {currentlyVisibleState}
-                <button onClick={this.handleClick}>{buttonText}</button>
+                <button onClick={this.handleClick}>{buttonText = "create"}</button>
             </React.Fragment>
         )
     }

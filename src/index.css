@@ -11,3 +11,26 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.item-comp {
+  width: 40%;
+  height: auto;
+  margin: 1% auto;
+  display: block;
+  justify-content: space-evenly;
+  border: solid;
+  padding-left: 0px;
+  color: rgb(211, 18, 4);
+  border-radius: 7px;
+  text-align: center;
+  transition: .3s ease-in-out;
+
+}
+
+.item-comp:hover {
+  box-shadow: 10px 10px lightblue;
+  width: 41%;
+  font-size: large;
+  transform: translateX(-15px);
+
+}
