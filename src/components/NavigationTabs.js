@@ -1,16 +1,16 @@
 import React from 'react';
-
 const navTabStyles = {
     display: "flex",
     flexGrow: "3"
 }
 
 const navBtnStyles = {
-    border: "1px solid #00FFFF",
-    color: "#00FFFF",
+    border: "1px solid #bf000d",
+    color: "#bf000d",
     height: "100%",
-    width: "20%",
+    width: "100%",
     fontSize: "1.1vw"
+
 }
 
 function NavigationTabs() {

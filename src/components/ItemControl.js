@@ -3,6 +3,7 @@ import NewItemForm from "./NewItemForm";
 import ItemList from "./ItemList";
 import EditItemForm from './EditItemForm';
 import ItemDetail from './ItemDetail';
+import Cart from "./Cart";
 
 class ItemControl extends React.Component {
     constructor(props) {
@@ -26,8 +27,26 @@ class ItemControl extends React.Component {
                     id: 2
                 }
             ],
+            cartList: [
+                {
+                    name: 'Cart test',
+                    quantity: 1,
+                    price: 1,
+                    description: 'test',
+                    id: 1
+
+                },
+                {
+                    name: 'Cart test2',
+                    quantity: 2,
+                    price: 2,
+                    description: 'test2',
+                    id: 2
+                }
+            ],
             selectedItem: null,
-            editing: false
+            editing: false,
+            showCart: false
         };
         this.handleClick = this.handleClick.bind(this);
     }
@@ -39,6 +58,8 @@ class ItemControl extends React.Component {
                 selectedItem: null,
                 editing: false
             });
+        } else if (this.state.showCart) {
+            this.setState({ showCart: false });
         } else {
             this.setState(prevState => ({
                 formVisibleOnPage: !prevState.formVisibleOnPage
@@ -56,7 +77,10 @@ class ItemControl extends React.Component {
             mainItemList: newMainItemList,
             formVisibleOnPage: false
         });
-        console.log(this.state.mainItemList);
+    }
+
+    handleShowingCart = () => {
+        this.setState({ showCart: true });
     }
 
     handleChangingSelectedItem = (id) => {
@@ -83,6 +107,7 @@ class ItemControl extends React.Component {
         });
     }
 
+    //Work on making a state for cart showing and going away
     render() {
 
         let currentlyVisibleState = null;
@@ -99,14 +124,19 @@ class ItemControl extends React.Component {
         } else if (this.state.formVisibleOnPage) {
             currentlyVisibleState = <NewItemForm onNewItemCreation={this.handleAddingNewItemToList} onClickingDelete={this.handleDeletingTicket} />;
             buttonText = "Return to item List";
+        } else if (this.state.showCart) {
+            currentlyVisibleState = <Cart currentCartList={this.state.cartList} />
+            buttonText = "Return to item List";
         } else {
             currentlyVisibleState = <ItemList itemList={this.state.mainItemList} onItemSelection={this.handleChangingSelectedItem} />
+            buttonText = "Create item";
         }
-
+        //cart react fragment
         return (
             <React.Fragment>
+                <button onClick={this.handleShowingCart}>Cart</button>
                 {currentlyVisibleState}
-                <button onClick={this.handleClick}>{buttonText = "create"}</button>
+                <button onClick={this.handleClick} className="button">{buttonText}</button>
             </React.Fragment>
         )
     }

@@ -6,7 +6,7 @@ function Item(props) {
     if (props.item.quantity < 1) {
         inventory = "out of stock";
     } else {
-        inventory = <button onClick={() => props.method(props.position)}>Reduce Quantity</button>;
+        inventory = <button onClick={() => props.method(props.position)}>Add to cart</button>;
     }
     return (
         <React.Fragment>

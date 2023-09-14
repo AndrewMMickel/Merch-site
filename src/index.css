@@ -5,11 +5,27 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  text-align: center;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.cart-style {
+  width: 40%;
+  height: auto;
+  margin: 1% auto;
+  display: block;
+  justify-content: space-evenly;
+  border: solid;
+  padding-left: 0px;
+  color: rgb(81, 196, 4);
+  border-radius: 7px;
+  text-align: center;
+  transition: .3s ease-in-out;
+
 }
 
 .item-comp {
@@ -33,4 +49,8 @@ code {
   font-size: large;
   transform: translateX(-15px);
 
+}
+
+.button {
+  text-align: center;
 }
