@@ -12,6 +12,7 @@ function ItemList(props) {
                     position={index}
                     method={props.onDecrementItemQuantity}
                     key={item.id}
+                    onAddToCart={props.onAddToCart}
                 />
 
             )}
@@ -21,7 +22,8 @@ function ItemList(props) {
 
 ItemList.propTypes = {
     itemList: PropTypes.array,
-    onItemSelection: PropTypes.func
+    onItemSelection: PropTypes.func,
+    onAddToCart: PropTypes.func
 };
 
 export default ItemList;

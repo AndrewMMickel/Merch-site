@@ -33,7 +33,7 @@ class ItemControl extends React.Component {
                     quantity: 1,
                     price: 1,
                     description: 'test',
-                    id: 1
+                    id: 3
 
                 },
                 {
@@ -41,7 +41,7 @@ class ItemControl extends React.Component {
                     quantity: 2,
                     price: 2,
                     description: 'test2',
-                    id: 2
+                    id: 4
                 }
             ],
             selectedItem: null,
@@ -82,6 +82,32 @@ class ItemControl extends React.Component {
     handleShowingCart = () => {
         this.setState({ showCart: true });
     }
+
+    handleAddingItemToCart = (id) => {
+        const selectedItem = this.state.mainItemList.filter(item => item.id === id)[0];
+        const filteredCartList = this.state.cartList.filter(item => item.id === id);
+        console.log(filteredCartList)
+        if (filteredCartList.length === 0) {
+            const updatedCartItem = {
+                ...selectedItem,
+                quantity: 1
+            }
+            const newCartList = this.state.cartList.concat(updatedCartItem);
+            this.setState({ cartList: newCartList });
+        } else {
+            const updatedCartItem = {
+                ...filteredCartList[0],
+                quantity: filteredCartList[0].quantity = filteredCartList[0].quantity + 1
+            }
+            const newCartList = this.state.cartList.filter(item => item.id !== id);
+            const updatedCartList = [
+                ...newCartList,
+                updatedCartItem
+            ]
+            this.setState({ cartList: updatedCartList });
+        }
+    }
+
     //make a version that is for adding items to cart. This.setstate should add items to cart
     handleChangingSelectedItem = (id) => {
         const selectedItem = this.state.mainItemList.filter(item => item.id === id)[0];
@@ -128,7 +154,7 @@ class ItemControl extends React.Component {
             currentlyVisibleState = <Cart currentCartList={this.state.cartList} />
             buttonText = "Return to item List";
         } else {
-            currentlyVisibleState = <ItemList itemList={this.state.mainItemList} onItemSelection={this.handleChangingSelectedItem} />
+            currentlyVisibleState = <ItemList itemList={this.state.mainItemList} onItemSelection={this.handleChangingSelectedItem} onAddToCart={this.handleAddingItemToCart} />
             buttonText = "Create item";
         }
         //cart react fragment

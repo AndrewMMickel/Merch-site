@@ -2,24 +2,19 @@ import React from "react";
 import PropTypes from "prop-types";
 
 function Item(props) {
-    let inventory;
-    //change these to be less confusing. Instead of add to cart
-    if (props.item.quantity < 1) {
-        inventory = "out of stock";
-    } else {
-        inventory = <button onClick={() => props.method(props.position)}>Add to cart</button>;
-    }
+
+
     return (
         <React.Fragment>
-            <div onClick={() => props.whenItemClicked(props.item.id)} key={props.item.id} className="item-comp">
+            <div key={props.item.id} className="item-comp">
+                <button onClick={() => props.whenItemClicked(props.item.id)}>Item details</button>
                 <h3>product Name: {props.item.name}</h3>
                 <p>Short description: {props.item.description}</p>
                 <p>Amount: {parseInt(props.item.quantity)}</p>
                 <p>Price in yen: {props.item.price}</p>
                 <p>{props.item.id}</p>
                 <hr />
-                {/*button for decrement here (add to cart button)*/}
-                {inventory}
+                <button onClick={() => props.onAddToCart(props.item.id)}>Add to cart</button>
             </div>
         </React.Fragment>
     );
@@ -31,7 +26,8 @@ Item.propTypes = {
     quantity: PropTypes.number,
     price: PropTypes.number,
     id: PropTypes.string,
-    whenItemClicked: PropTypes.func
+    whenItemClicked: PropTypes.func,
+    onAddToCart: PropTypes.func
 };
 
 export default Item;
