@@ -1,4 +1,6 @@
 import React from 'react';
+import backgroundImg from "./../img/backgroundImg.png";
+
 const navTabStyles = {
     display: "flex",
     flexGrow: "3"
@@ -7,8 +9,8 @@ const navTabStyles = {
 const navBtnStyles = {
     border: "1px solid #bf000d",
     color: "#bf000d",
-    height: "100%",
-    width: "100%",
+    height: "40%",
+    width: "40%",
     fontSize: "1.1vw"
 
 }
@@ -16,10 +18,15 @@ const navBtnStyles = {
 function NavigationTabs() {
     return (
         <React.Fragment>
-            <div id="navigation-tabs" className="col-md-6" style={navTabStyles}>
-                <button type="button" className="nav-btn" style={navBtnStyles}>Home</button>
-                <button type="button" className="nav-btn" style={navBtnStyles}>Notifications</button>
-                <button type="button" className="nav-btn" style={navBtnStyles}>Applications</button>
+            <div id="intro">
+                <h1 color="#bf000d">Reimu's Farmer Market</h1>
+                <div id="navigation-tabs" className="col-md-6" style={navTabStyles}>
+                    <img src={backgroundImg} alt="backgroundImg" className="img-style"></img>
+                    <button type="button" className="nav-btn" style={navBtnStyles}>Home</button>
+                    <button type="button" className="nav-btn" style={navBtnStyles}>Notifications</button>
+                    <button type="button" className="nav-btn" style={navBtnStyles}>Applications</button>
+                    <img src={backgroundImg} alt="backgroundImg" className="img-style"></img>
+                </div>
             </div>
         </React.Fragment>
     );

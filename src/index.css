@@ -28,6 +28,12 @@ code {
 
 }
 
+.img-style {
+  width: 200px;
+  height: 200px;
+  justify-content: space-evenly;
+}
+
 .item-comp {
   width: 40%;
   height: auto;

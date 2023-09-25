@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import Item from "./Item";
 function Cart(props) {
 
-
     return (
         <React.Fragment>
             {props.currentCartList.map((item, index) =>

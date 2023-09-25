@@ -15,7 +15,7 @@ function EditItemForm(props) {
             id: item.id
         });
     }
-
+    //image use url. Add to create and edit. string input
     return (
         <React.Fragment>
             <h3>Item name: {item.name} - Quantity: {item.quantity}</h3>

@@ -82,7 +82,7 @@ class ItemControl extends React.Component {
     handleShowingCart = () => {
         this.setState({ showCart: true });
     }
-
+    //make a version that is for adding items to cart. This.setstate should add items to cart
     handleChangingSelectedItem = (id) => {
         const selectedItem = this.state.mainItemList.filter(item => item.id === id)[0];
         this.setState({ selectedItem: selectedItem });

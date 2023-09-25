@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 
 function Item(props) {
     let inventory;
+    //change these to be less confusing. Instead of add to cart
     if (props.item.quantity < 1) {
         inventory = "out of stock";
     } else {
