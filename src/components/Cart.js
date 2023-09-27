@@ -1,16 +1,15 @@
 import React from "react";
 import PropTypes from "prop-types";
-import Item from "./Item";
+import CartItem from "./CartItem";
 function Cart(props) {
 
     return (
         <React.Fragment>
-            {props.currentCartList.map((item, index) =>
-                <Item
+            {props.cartList.map((item, index) =>
+                <CartItem
                     item={item}
-                    position={index}
-                    method={props.onDecrementItemQuantity}
                     key={item.id}
+                    deleteItemFromCart={props.onDeleteItemFromCart}
                 />
 
             )}
@@ -19,6 +18,7 @@ function Cart(props) {
 }
 
 Cart.propTypes = {
-    currentCartList: PropTypes.array
+    cartList: PropTypes.array,
+    onDeleteItemFromCart: PropTypes.func
 };
 export default Cart;
