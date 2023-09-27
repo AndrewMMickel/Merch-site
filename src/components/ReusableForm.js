@@ -8,6 +8,11 @@ function ReusableForm(props) {
             <form onSubmit={props.formSubmissionHandler}>
                 <input
                     type='text'
+                    name='imageurl'
+                    placeholder='URL to image'
+                    defaultValue={item ? item.imageurl : ""} />
+                <input
+                    type='text'
                     name='name'
                     placeholder='Product Name'
                     defaultValue={item ? item.name : ""} />

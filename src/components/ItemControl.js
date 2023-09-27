@@ -12,38 +12,24 @@ class ItemControl extends React.Component {
             formVisibleOnPage: false,
             mainItemList: [
                 {
-                    name: 'test',
-                    quantity: 1,
-                    price: 1,
-                    description: 'test',
+                    imageurl: "",
+                    name: 'Watermelons',
+                    quantity: 10,
+                    price: 350,
+                    description: 'Big, healthy watermelons',
                     id: 1
 
                 },
                 {
-                    name: 'test2',
-                    quantity: 2,
-                    price: 2,
-                    description: 'test2',
+                    imageurl: "",
+                    name: 'Rice bag',
+                    quantity: 10,
+                    price: 450,
+                    description: '4Kg bag of rice',
                     id: 2
                 }
             ],
-            cartList: [
-                {
-                    name: 'Cart test',
-                    quantity: 1,
-                    price: 1,
-                    description: 'test',
-                    id: 3
-
-                },
-                {
-                    name: 'Cart test2',
-                    quantity: 2,
-                    price: 2,
-                    description: 'test2',
-                    id: 4
-                }
-            ],
+            cartList: [],
             selectedItem: null,
             editing: false,
             showCart: false
@@ -77,6 +63,7 @@ class ItemControl extends React.Component {
             mainItemList: newMainItemList,
             formVisibleOnPage: false
         });
+        console.log(newMainItemList)
     }
 
     handleShowingCart = () => {
@@ -86,7 +73,6 @@ class ItemControl extends React.Component {
     handleAddingItemToCart = (id) => {
         const selectedItem = this.state.mainItemList.filter(item => item.id === id)[0];
         const filteredCartList = this.state.cartList.filter(item => item.id === id);
-        console.log(filteredCartList)
         if (filteredCartList.length === 0) {
             const updatedCartItem = {
                 ...selectedItem,
@@ -107,8 +93,12 @@ class ItemControl extends React.Component {
             this.setState({ cartList: updatedCartList });
         }
     }
+    //update view of cart components. hover, onclick, ect.
+    //update item list to change quantity of items from mainlist to the cart
+    //"can't add to cart if item is zero" function
+    //add images for items. on homepage have items on top of info, and in cart to the left
 
-    //make a version that is for adding items to cart. This.setstate should add items to cart
+
     handleChangingSelectedItem = (id) => {
         const selectedItem = this.state.mainItemList.filter(item => item.id === id)[0];
         this.setState({ selectedItem: selectedItem });
@@ -133,7 +123,13 @@ class ItemControl extends React.Component {
         });
     }
 
-    //Work on making a state for cart showing and going away
+    handleDeleteItemFromCart = (id) => {
+        const newCartList = this.state.cartList.filter(item => item.id !== id);
+        this.setState({
+            cartList: newCartList
+        })
+    }
+
     render() {
 
         let currentlyVisibleState = null;
@@ -148,21 +144,20 @@ class ItemControl extends React.Component {
                 onClickingEdit={this.handleEditClick} />;
             buttonText = "Return to item List";
         } else if (this.state.formVisibleOnPage) {
-            currentlyVisibleState = <NewItemForm onNewItemCreation={this.handleAddingNewItemToList} onClickingDelete={this.handleDeletingTicket} />;
+            currentlyVisibleState = <NewItemForm onNewItemCreation={this.handleAddingNewItemToList} />;
             buttonText = "Return to item List";
         } else if (this.state.showCart) {
-            currentlyVisibleState = <Cart currentCartList={this.state.cartList} />
+            currentlyVisibleState = <Cart cartList={this.state.cartList} onDeleteItemFromCart={this.handleDeleteItemFromCart} />
             buttonText = "Return to item List";
         } else {
             currentlyVisibleState = <ItemList itemList={this.state.mainItemList} onItemSelection={this.handleChangingSelectedItem} onAddToCart={this.handleAddingItemToCart} />
             buttonText = "Create item";
         }
-        //cart react fragment
         return (
             <React.Fragment>
                 <button onClick={this.handleShowingCart}>Cart</button>
-                {currentlyVisibleState}
                 <button onClick={this.handleClick} className="button">{buttonText}</button>
+                {currentlyVisibleState}
             </React.Fragment>
         )
     }

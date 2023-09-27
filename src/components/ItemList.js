@@ -10,7 +10,6 @@ function ItemList(props) {
                     whenItemClicked={props.onItemSelection}
                     item={item}
                     position={index}
-                    method={props.onDecrementItemQuantity}
                     key={item.id}
                     onAddToCart={props.onAddToCart}
                 />

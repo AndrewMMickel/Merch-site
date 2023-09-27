@@ -13,19 +13,8 @@ code {
     monospace;
 }
 
-.cart-style {
-  width: 40%;
-  height: auto;
-  margin: 1% auto;
-  display: block;
-  justify-content: space-evenly;
-  border: solid;
-  padding-left: 0px;
-  color: rgb(81, 196, 4);
-  border-radius: 7px;
-  text-align: center;
-  transition: .3s ease-in-out;
-
+img {
+  max-width: 100%;
 }
 
 .img-style {
@@ -43,6 +32,21 @@ code {
   border: solid;
   padding-left: 0px;
   color: rgb(211, 18, 4);
+  border-radius: 7px;
+  text-align: center;
+  transition: .3s ease-in-out;
+
+}
+
+.cart-style {
+  width: 40%;
+  height: auto;
+  margin: 1% auto;
+  display: block;
+  justify-content: space-evenly;
+  border: solid;
+  padding-left: 0px;
+  color: rgb(0, 140, 158);
   border-radius: 7px;
   text-align: center;
   transition: .3s ease-in-out;

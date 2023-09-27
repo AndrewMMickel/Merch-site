@@ -25,6 +25,7 @@ function NavigationTabs() {
                     <button type="button" className="nav-btn" style={navBtnStyles}>Home</button>
                     <button type="button" className="nav-btn" style={navBtnStyles}>Notifications</button>
                     <button type="button" className="nav-btn" style={navBtnStyles}>Applications</button>
+                    {/* <h3>The one stop shop for all your eating needs. Remember to tip your local Miko when you pick up your package</h3> */}
                     <img src={backgroundImg} alt="backgroundImg" className="img-style"></img>
                 </div>
             </div>

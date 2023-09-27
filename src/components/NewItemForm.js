@@ -7,8 +7,15 @@ function NewItemForm(props) {
 
     function handleNewItemFormSubmission(event) {
         event.preventDefault();
-        props.onNewItemCreation({ name: event.target.name.value, quantity: parseInt(event.target.quantity.value), price: event.target.price.value, description: event.target.description.value, id: v4() });
+        props.onNewItemCreation({
+            imageurl: event.target.imageurl.value,
+            name: event.target.name.value,
+            quantity: parseInt(event.target.quantity.value),
+            price: event.target.price.value,
+            description: event.target.description.value,
+            id: v4()
 
+        });
     }
 
     return (
