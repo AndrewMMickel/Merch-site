@@ -4,6 +4,7 @@ import ItemList from "./ItemList";
 import EditItemForm from './EditItemForm';
 import ItemDetail from './ItemDetail';
 import Cart from "./Cart";
+import CartItem from "./CartItem";
 
 class ItemControl extends React.Component {
     constructor(props) {
@@ -71,32 +72,58 @@ class ItemControl extends React.Component {
     }
 
     handleAddingItemToCart = (id) => {
+        //grab selected item from mainItemList
         const selectedItem = this.state.mainItemList.filter(item => item.id === id)[0];
+        //check if selectedItem has inventory that can be added to cartList
+        if (selectedItem.quantity === 0) {
+            return;
+        }
+        //Check if selectedCartList has item; if not add item, if so change quantity
         const filteredCartList = this.state.cartList.filter(item => item.id === id);
         if (filteredCartList.length === 0) {
+            //set up newCartItem in CartList
             const updatedCartItem = {
                 ...selectedItem,
                 quantity: 1
             }
             const newCartList = this.state.cartList.concat(updatedCartItem);
-            this.setState({ cartList: newCartList });
+            //set up MainItemList with updatedItem for cart
+            const newItem = {
+                ...selectedItem,
+                quantity: selectedItem.quantity - 1
+            }
+            const newMainItemList = this.state.mainItemList.filter(item => item.id !== selectedItem.id).concat(newItem);
+            this.setState({
+                mainItemList: newMainItemList,
+                cartList: newCartList
+            })
+
         } else {
+            //set up UpdatedCartItem in CartList
             const updatedCartItem = {
                 ...filteredCartList[0],
                 quantity: filteredCartList[0].quantity = filteredCartList[0].quantity + 1
             }
-            const newCartList = this.state.cartList.filter(item => item.id !== id);
-            const updatedCartList = [
-                ...newCartList,
-                updatedCartItem
-            ]
-            this.setState({ cartList: updatedCartList });
+            const newCartList = this.state.cartList.filter(item => item.id !== id).concat(updatedCartItem);
+            //set up UpdatedMainItemList with updated item quantity
+            const newItem = {
+                ...selectedItem,
+                quantity: selectedItem.quantity - 1
+            }
+            const newMainItemList = this.state.mainItemList.filter(item => item.id !== selectedItem.id).concat(newItem);
+            this.setState({
+                mainItemList: newMainItemList,
+                cartList: newCartList
+
+            });
         }
     }
-    //update view of cart components. hover, onclick, ect.
-    //update item list to change quantity of items from mainlist to the cart
-    //"can't add to cart if item is zero" function
-    //add images for items. on homepage have items on top of info, and in cart to the left
+
+
+    //add/remove quantity inside cart
+    //add purchase of cart component
+    //add ClearCart button
+    //style cartItem so images are on the left
 
 
     handleChangingSelectedItem = (id) => {
@@ -125,8 +152,16 @@ class ItemControl extends React.Component {
 
     handleDeleteItemFromCart = (id) => {
         const newCartList = this.state.cartList.filter(item => item.id !== id);
+        const selectedCartItem = this.state.cartList.filter(item => item.id === id)[0];
+        const selectedMainItem = this.state.mainItemList.filter(item => item.id === id)[0];
+        const updatedMainItem = {
+            ...selectedMainItem,
+            quantity: selectedMainItem.quantity + selectedCartItem.quantity
+        }
+        const newMainItemList = this.state.mainItemList.filter(item => item.id !== selectedMainItem.id).concat(updatedMainItem);
         this.setState({
-            cartList: newCartList
+            cartList: newCartList,
+            mainItemList: newMainItemList
         })
     }
 
