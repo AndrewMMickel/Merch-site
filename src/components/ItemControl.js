@@ -64,7 +64,6 @@ class ItemControl extends React.Component {
             mainItemList: newMainItemList,
             formVisibleOnPage: false
         });
-        console.log(newMainItemList)
     }
 
     handleShowingCart = () => {
@@ -119,13 +118,6 @@ class ItemControl extends React.Component {
         }
     }
 
-
-    //add/remove quantity inside cart
-    //add purchase of cart component
-    //add ClearCart button
-    //style cartItem so images are on the left
-
-
     handleChangingSelectedItem = (id) => {
         const selectedItem = this.state.mainItemList.filter(item => item.id === id)[0];
         this.setState({ selectedItem: selectedItem });
@@ -165,6 +157,30 @@ class ItemControl extends React.Component {
         })
     }
 
+    handleClearingCart = () => {
+        const updatedMainItemList = this.state.mainItemList.map((mainItem) => {
+            let result = mainItem;
+            this.state.cartList.forEach((cartItem) => {
+                if (mainItem.id === cartItem.id) {
+                    const newItem = {
+                        ...mainItem,
+                        quantity: mainItem.quantity + cartItem.quantity
+                    }
+                    result = newItem;
+                }
+            })
+            return result;
+        })
+        this.setState({
+            mainItemList: updatedMainItemList,
+            cartList: []
+        });
+    }
+    //add/remove quantity inside cart
+    //add purchase of cart component
+    //add ClearCart button
+    //style cartItem so images are on the left
+
     render() {
 
         let currentlyVisibleState = null;
@@ -182,7 +198,7 @@ class ItemControl extends React.Component {
             currentlyVisibleState = <NewItemForm onNewItemCreation={this.handleAddingNewItemToList} />;
             buttonText = "Return to item List";
         } else if (this.state.showCart) {
-            currentlyVisibleState = <Cart cartList={this.state.cartList} onDeleteItemFromCart={this.handleDeleteItemFromCart} />
+            currentlyVisibleState = <Cart cartList={this.state.cartList} onDeleteItemFromCart={this.handleDeleteItemFromCart} onClickClearCart={this.handleClearingCart} />
             buttonText = "Return to item List";
         } else {
             currentlyVisibleState = <ItemList itemList={this.state.mainItemList} onItemSelection={this.handleChangingSelectedItem} onAddToCart={this.handleAddingItemToCart} />
