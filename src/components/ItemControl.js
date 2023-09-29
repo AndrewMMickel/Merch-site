@@ -176,9 +176,9 @@ class ItemControl extends React.Component {
             cartList: []
         });
     }
+
     //add/remove quantity inside cart
     //add purchase of cart component
-    //add ClearCart button
     //style cartItem so images are on the left
 
     render() {
