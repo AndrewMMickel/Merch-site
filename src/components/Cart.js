@@ -11,6 +11,7 @@ function Cart(props) {
                     item={item}
                     key={item.id}
                     deleteItemFromCart={props.onDeleteItemFromCart}
+                    cartQuantityChange={props.onClickCartQuantity}
                 />
             )}
         </React.Fragment>
@@ -20,6 +21,7 @@ function Cart(props) {
 Cart.propTypes = {
     cartList: PropTypes.array,
     onDeleteItemFromCart: PropTypes.func,
-    onClickClearCart: PropTypes.func
+    onClickClearCart: PropTypes.func,
+    onClickCartQuantity: PropTypes.func
 };
 export default Cart;

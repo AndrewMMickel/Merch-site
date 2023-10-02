@@ -4,7 +4,6 @@ import ItemList from "./ItemList";
 import EditItemForm from './EditItemForm';
 import ItemDetail from './ItemDetail';
 import Cart from "./Cart";
-import CartItem from "./CartItem";
 
 class ItemControl extends React.Component {
     constructor(props) {
@@ -96,26 +95,52 @@ class ItemControl extends React.Component {
                 mainItemList: newMainItemList,
                 cartList: newCartList
             })
-
         } else {
-            //set up UpdatedCartItem in CartList
-            const updatedCartItem = {
-                ...filteredCartList[0],
-                quantity: filteredCartList[0].quantity = filteredCartList[0].quantity + 1
-            }
-            const newCartList = this.state.cartList.filter(item => item.id !== id).concat(updatedCartItem);
-            //set up UpdatedMainItemList with updated item quantity
-            const newItem = {
-                ...selectedItem,
-                quantity: selectedItem.quantity - 1
-            }
-            const newMainItemList = this.state.mainItemList.filter(item => item.id !== selectedItem.id).concat(newItem);
-            this.setState({
-                mainItemList: newMainItemList,
-                cartList: newCartList
-
-            });
+            this.handleChangingCartItemQuantity("add", id);
         }
+    }
+
+    handleChangingCartItemQuantity = (typeOfOperation, id) => {
+        const currentCartListItem = this.state.cartList.filter(item => item.id === id)[0];
+        const currentMainItem = this.state.mainItemList.filter(item => item.id === id)[0];
+        if (currentMainItem.quantity === 0 && typeOfOperation === "add") {
+            return;
+        } else if (currentCartListItem.quantity === 1 && typeOfOperation === "subtract") {
+            this.handleDeleteItemFromCart(id);
+            return;
+        }
+        //Set up typeOfOperation
+        let updatedCartItemQuantity;
+        let updatedMainItemQuantity;
+        switch (typeOfOperation) {
+            case "add":
+                updatedCartItemQuantity = currentCartListItem.quantity + 1;
+                updatedMainItemQuantity = currentMainItem.quantity - 1;
+                break;
+            case "subtract":
+                updatedCartItemQuantity = currentCartListItem.quantity - 1;
+                updatedMainItemQuantity = currentMainItem.quantity + 1;
+                break;
+            default:
+                console.log("handleChangingCartItemQuantity error")
+        }
+
+        //set up UpdatedCartItem in CartList
+        const updatedCartItem = {
+            ...currentMainItem,
+            quantity: updatedCartItemQuantity
+        }
+        const newCartList = this.state.cartList.filter(item => item.id !== id).concat(updatedCartItem);
+        //set up UpdatedMainItemList with updated item quantity
+        const updatedMainItem = {
+            ...currentMainItem,
+            quantity: updatedMainItemQuantity
+        }
+        const newMainItemList = this.state.mainItemList.filter(item => item.id !== currentMainItem.id).concat(updatedMainItem);
+        this.setState({
+            mainItemList: newMainItemList,
+            cartList: newCartList
+        });
     }
 
     handleChangingSelectedItem = (id) => {
@@ -176,8 +201,6 @@ class ItemControl extends React.Component {
             cartList: []
         });
     }
-
-    //add/remove quantity inside cart
     //add purchase of cart component
     //style cartItem so images are on the left
 
@@ -198,7 +221,7 @@ class ItemControl extends React.Component {
             currentlyVisibleState = <NewItemForm onNewItemCreation={this.handleAddingNewItemToList} />;
             buttonText = "Return to item List";
         } else if (this.state.showCart) {
-            currentlyVisibleState = <Cart cartList={this.state.cartList} onDeleteItemFromCart={this.handleDeleteItemFromCart} onClickClearCart={this.handleClearingCart} />
+            currentlyVisibleState = <Cart cartList={this.state.cartList} onDeleteItemFromCart={this.handleDeleteItemFromCart} onClickClearCart={this.handleClearingCart} onClickCartQuantity={this.handleChangingCartItemQuantity} />
             buttonText = "Return to item List";
         } else {
             currentlyVisibleState = <ItemList itemList={this.state.mainItemList} onItemSelection={this.handleChangingSelectedItem} onAddToCart={this.handleAddingItemToCart} />
