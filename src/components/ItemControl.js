@@ -32,9 +32,16 @@ class ItemControl extends React.Component {
             cartList: [],
             selectedItem: null,
             editing: false,
-            showCart: false
+            showCart: false,
+            cartTotal: 0
         };
         this.handleClick = this.handleClick.bind(this);
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        if (this.state.cartList !== prevState.cartList) {
+            this.handleCalculateCartTotal();
+        }
     }
 
     handleClick = () => {
@@ -67,6 +74,7 @@ class ItemControl extends React.Component {
 
     handleShowingCart = () => {
         this.setState({ showCart: true });
+        this.handleCalculateCartTotal();
     }
 
     handleAddingItemToCart = (id) => {
@@ -141,6 +149,24 @@ class ItemControl extends React.Component {
             mainItemList: newMainItemList,
             cartList: newCartList
         });
+        this.handleCalculateCartTotal(newCartList);
+    }
+
+    handleCalculateCartTotal = (manualCartList) => {
+        let totalCartListPrice = 0;
+        if (manualCartList) {
+            manualCartList.forEach((cartItem) => {
+                totalCartListPrice += cartItem.quantity * cartItem.price
+            })
+        } else {
+            this.state.cartList.forEach((cartItem) => {
+                totalCartListPrice += cartItem.quantity * cartItem.price
+            })
+        }
+        console.log(totalCartListPrice);
+        this.setState({
+            cartTotal: totalCartListPrice
+        })
     }
 
     handleChangingSelectedItem = (id) => {
@@ -201,6 +227,11 @@ class ItemControl extends React.Component {
             cartList: []
         });
     }
+
+    handlePurchaseCartClick = () => {
+        alert("Purchase cart clicked");
+    }
+
     //add purchase of cart component
     //style cartItem so images are on the left
 
@@ -209,22 +240,44 @@ class ItemControl extends React.Component {
         let currentlyVisibleState = null;
         let buttonText = null;
         if (this.state.editing) {
-            currentlyVisibleState = <EditItemForm item={this.state.selectedItem} onEditItem={this.handleEditingItemInList} />
+            currentlyVisibleState =
+                <EditItemForm
+                    item={this.state.selectedItem}
+                    onEditItem={this.handleEditingItemInList}
+                />
             buttonText = "Return to item List";
         } else if (this.state.selectedItem != null) {
-            currentlyVisibleState = <ItemDetail
-                item={this.state.selectedItem}
-                onClickingDelete={this.handleDeletingItem}
-                onClickingEdit={this.handleEditClick} />;
+            currentlyVisibleState =
+                <ItemDetail
+                    item={this.state.selectedItem}
+                    onClickingDelete={this.handleDeletingItem}
+                    onClickingEdit={this.handleEditClick}
+                />;
             buttonText = "Return to item List";
         } else if (this.state.formVisibleOnPage) {
-            currentlyVisibleState = <NewItemForm onNewItemCreation={this.handleAddingNewItemToList} />;
+            currentlyVisibleState =
+                <NewItemForm
+                    onNewItemCreation={this.handleAddingNewItemToList}
+                />;
             buttonText = "Return to item List";
         } else if (this.state.showCart) {
-            currentlyVisibleState = <Cart cartList={this.state.cartList} onDeleteItemFromCart={this.handleDeleteItemFromCart} onClickClearCart={this.handleClearingCart} onClickCartQuantity={this.handleChangingCartItemQuantity} />
+            currentlyVisibleState =
+                <Cart
+                    cartList={this.state.cartList}
+                    onDeleteItemFromCart={this.handleDeleteItemFromCart}
+                    onClickClearCart={this.handleClearingCart}
+                    onClickCartQuantity={this.handleChangingCartItemQuantity}
+                    purchaseCartClick={this.handlePurchaseCartClick}
+                    cartTotal={this.state.cartTotal}
+                />
             buttonText = "Return to item List";
         } else {
-            currentlyVisibleState = <ItemList itemList={this.state.mainItemList} onItemSelection={this.handleChangingSelectedItem} onAddToCart={this.handleAddingItemToCart} />
+            currentlyVisibleState =
+                <ItemList
+                    itemList={this.state.mainItemList}
+                    onItemSelection={this.handleChangingSelectedItem}
+                    onAddToCart={this.handleAddingItemToCart}
+                />
             buttonText = "Create item";
         }
         return (
