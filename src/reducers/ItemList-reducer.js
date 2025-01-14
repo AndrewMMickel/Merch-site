@@ -1,12 +1,15 @@
 const reducer = (state = {}, action) => {
-    const { item, position, id } = action;
+    const { id } = action;
     switch (action.type) {
         case 'ADD_ITEM':
             return Object.assign({}, state, {
                 [id]: {
-                    item: item,
-                    position: position,
-                    key: id
+                    id: action.id,
+                    name: action.name,
+                    quantity: action.quantity,
+                    price: action.price,
+                    description: action.description,
+                    imageurl: action.imageurl
                 }
             });
         case 'DELETE_ITEM':
