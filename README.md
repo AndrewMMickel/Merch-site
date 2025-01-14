@@ -2,6 +2,7 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+This project is a mockup of a farmer's market website with a touhou theming. The project has a homepage with a list of items, a cart for items, and pages for updating items on the homepage or adding new items. There is also purchase cart functionality.
 ## Available Scripts
 
 In the project directory, you can run:

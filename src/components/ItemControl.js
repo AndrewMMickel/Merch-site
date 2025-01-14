@@ -4,31 +4,14 @@ import ItemList from "./ItemList";
 import EditItemForm from './EditItemForm';
 import ItemDetail from './ItemDetail';
 import Cart from "./Cart";
+import { connect } from 'react-redux';
+import PropTypes from "prop-types";
 
 class ItemControl extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             formVisibleOnPage: false,
-            mainItemList: [
-                {
-                    imageurl: "",
-                    name: 'Watermelons',
-                    quantity: 10,
-                    price: 350,
-                    description: 'Big, healthy watermelons',
-                    id: 1
-
-                },
-                {
-                    imageurl: "",
-                    name: 'Rice bag',
-                    quantity: 10,
-                    price: 450,
-                    description: '4Kg bag of rice',
-                    id: 2
-                }
-            ],
             cartList: [],
             selectedItem: null,
             editing: false,
@@ -65,11 +48,16 @@ class ItemControl extends React.Component {
     }
 
     handleAddingNewItemToList = (newItem) => {
-        const newMainItemList = this.state.mainItemList.concat(newItem);
-        this.setState({
-            mainItemList: newMainItemList,
-            formVisibleOnPage: false
-        });
+        const { dispatch } = this.props;
+        const { item, id, position } = newItem;
+        const action = {
+            type: 'ADD_ITEM',
+            id: id,
+            item: item,
+            position: position,
+        }
+        dispatch(action);
+        this.state({ formVisibleOnPage: false });
     }
 
     handleShowingCart = () => {
@@ -80,10 +68,12 @@ class ItemControl extends React.Component {
     handleAddingItemToCart = (id) => {
         //grab selected item from mainItemList
         const selectedItem = this.state.mainItemList.filter(item => item.id === id)[0];
+
         //check if selectedItem has inventory that can be added to cartList
         if (selectedItem.quantity === 0) {
             return;
         }
+
         //Check if selectedCartList has item; if not add item, if so change quantity
         const filteredCartList = this.state.cartList.filter(item => item.id === id);
         if (filteredCartList.length === 0) {
@@ -163,34 +153,39 @@ class ItemControl extends React.Component {
                 totalCartListPrice += cartItem.quantity * cartItem.price
             })
         }
-        console.log(totalCartListPrice);
         this.setState({
             cartTotal: totalCartListPrice
         })
     }
 
     handleChangingSelectedItem = (id) => {
-        const selectedItem = this.state.mainItemList.filter(item => item.id === id)[0];
+        const selectedItem = this.props.mainItemList[id];
         this.setState({ selectedItem: selectedItem });
     }
 
     handleEditingItemInList = (itemToEdit) => {
-        const editedMainItemList = this.state.mainItemList
-            .filter(ticket => ticket.id !== this.state.selectedItem.id)
-            .concat(itemToEdit);
+        const { dispatch } = this.props;
+        const { item, id, position } = itemToEdit;
+        const action = {
+            type: 'ADD_ITEM',
+            id: id,
+            item: item,
+            position: position,
+        }
         this.setState({
-            mainItemList: editedMainItemList,
             editing: false,
             selectedItem: null
         });
     }
 
     handleDeletingItem = (id) => {
-        const newMainItemList = this.state.mainItemList.filter(item => item.id !== id);
-        this.setState({
-            mainItemList: newMainItemList,
-            selectedItem: null
-        });
+        const { dispatch } = this.props;
+        const action = {
+            type: 'DELETE_ITEM',
+            id: id
+        }
+        dispatch(action);
+        this.setState({ selectedItem: null });
     }
 
     handleDeleteItemFromCart = (id) => {
@@ -229,10 +224,12 @@ class ItemControl extends React.Component {
     }
 
     handlePurchaseCartClick = () => {
-        alert("Purchase cart clicked");
+        alert("Congrats on your purchase! Your items will be at the shrine, please come at anytime during the day to collect them.");
+        this.setState({
+            cartList: []
+        });
     }
 
-    //add purchase of cart component
     //style cartItem so images are on the left
 
     render() {
@@ -245,7 +242,7 @@ class ItemControl extends React.Component {
                     item={this.state.selectedItem}
                     onEditItem={this.handleEditingItemInList}
                 />
-            buttonText = "Return to item List";
+            buttonText = "Return to homepage";
         } else if (this.state.selectedItem != null) {
             currentlyVisibleState =
                 <ItemDetail
@@ -253,13 +250,13 @@ class ItemControl extends React.Component {
                     onClickingDelete={this.handleDeletingItem}
                     onClickingEdit={this.handleEditClick}
                 />;
-            buttonText = "Return to item List";
+            buttonText = "Return to homepage";
         } else if (this.state.formVisibleOnPage) {
             currentlyVisibleState =
                 <NewItemForm
                     onNewItemCreation={this.handleAddingNewItemToList}
                 />;
-            buttonText = "Return to item List";
+            buttonText = "Return to homepage";
         } else if (this.state.showCart) {
             currentlyVisibleState =
                 <Cart
@@ -270,11 +267,11 @@ class ItemControl extends React.Component {
                     purchaseCartClick={this.handlePurchaseCartClick}
                     cartTotal={this.state.cartTotal}
                 />
-            buttonText = "Return to item List";
+            buttonText = "Return to homepage";
         } else {
             currentlyVisibleState =
                 <ItemList
-                    itemList={this.state.mainItemList}
+                    itemList={this.props.mainItemList}
                     onItemSelection={this.handleChangingSelectedItem}
                     onAddToCart={this.handleAddingItemToCart}
                 />
@@ -289,4 +286,16 @@ class ItemControl extends React.Component {
         )
     }
 }
+const mapStateToProps = state => {
+    return {
+        mainTicketList: state
+    }
+}
+
+ItemControl.propTypes = {
+    mainItemList: PropTypes.object
+};
+
+ItemControl = connect(mapStateToProps)(ItemControl);
+
 export default ItemControl;
