@@ -11,7 +11,6 @@ class ItemControl extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            formVisibleOnPage: false,
             cartList: [],
             selectedItem: null,
             editing: false,
@@ -30,16 +29,17 @@ class ItemControl extends React.Component {
     handleClick = () => {
         if (this.state.selectedItem != null) {
             this.setState({
-                formVisibleOnPage: false,
                 selectedItem: null,
                 editing: false
             });
         } else if (this.state.showCart) {
             this.setState({ showCart: false });
         } else {
-            this.setState(prevState => ({
-                formVisibleOnPage: !prevState.formVisibleOnPage
-            }));
+            const { dispatch } = this.props;
+            const action = {
+                type: 'TOGGLE_FORM'
+            }
+            dispatch(action);
         }
     }
 
@@ -60,7 +60,10 @@ class ItemControl extends React.Component {
             id: id
         }
         dispatch(action);
-        this.setState({ formVisibleOnPage: false });
+        const action2 = {
+            type: 'TOGGLE_FORM'
+        }
+        dispatch(action2);
     }
 
     handleShowingCart = () => {
@@ -123,7 +126,7 @@ class ItemControl extends React.Component {
                 updatedMainItemQuantity = currentMainItem.quantity + 1;
                 break;
             default:
-                console.log("handleChangingCartItemQuantity error")
+                throw new Error("handleChangingCartItemQuantity error")
         }
 
         //set up UpdatedCartItem in CartList
@@ -237,8 +240,6 @@ class ItemControl extends React.Component {
         });
     }
 
-    //style cartItem so images are on the left
-
     render() {
 
         let currentlyVisibleState = null;
@@ -258,7 +259,7 @@ class ItemControl extends React.Component {
                     onClickingEdit={this.handleEditClick}
                 />;
             buttonText = "Return to homepage";
-        } else if (this.state.formVisibleOnPage) {
+        } else if (this.props.formVisibleOnPage) {
             currentlyVisibleState =
                 <NewItemForm
                     onNewItemCreation={this.handleAddingNewItemToList}

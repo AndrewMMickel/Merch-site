@@ -9,9 +9,10 @@ import rootReducer from './reducers/index';
 
 const store = createStore(rootReducer);
 
-store.subscribe(() =>
-  console.log(store.getState())
-);
+// uncomment out this block of code to see redux store updates in console
+// store.subscribe(() =>
+//   console.log(store.getState())
+// );
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
