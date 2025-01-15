@@ -11,7 +11,7 @@ class ItemControl extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            // formVisibleOnPage: false,
+            formVisibleOnPage: false,
             cartList: [],
             selectedItem: null,
             editing: false,
@@ -49,20 +49,18 @@ class ItemControl extends React.Component {
 
     handleAddingNewItemToList = (newItem) => {
         const { dispatch } = this.props;
-        const { item, id, position } = newItem;
-        console.log('newItem', newItem)
-        console.log('destructured item', item)
+        const { id, imageurl, name, quantity, price, description } = newItem;
         const action = {
             type: 'ADD_ITEM',
-            id: newItem.id,
-            imageurl: newItem.imageurl,
-            name: newItem.name,
-            quantity: newItem.quantity,
-            price: newItem.price,
-            description: newItem.description
+            imageurl: imageurl,
+            name: name,
+            quantity: quantity,
+            price: price,
+            description: description,
+            id: id
         }
         dispatch(action);
-        // this.state({ formVisibleOnPage: false });
+        this.setState({ formVisibleOnPage: false });
     }
 
     handleShowingCart = () => {
@@ -170,12 +168,15 @@ class ItemControl extends React.Component {
 
     handleEditingItemInList = (itemToEdit) => {
         const { dispatch } = this.props;
-        const { item, id, position } = itemToEdit;
+        const { id, imageurl, name, quantity, price, description } = itemToEdit;
         const action = {
             type: 'ADD_ITEM',
-            id: id,
-            item: item,
-            position: position,
+            imageurl: imageurl,
+            name: name,
+            quantity: quantity,
+            price: price,
+            description: description,
+            id: id
         }
         dispatch(action);
         this.setState({
