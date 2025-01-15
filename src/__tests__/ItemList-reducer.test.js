@@ -1,4 +1,4 @@
-import itemListReducer from '../../reducers/ItemList-reducer';
+import itemListReducer from './../reducers/ItemList-reducer';
 
 describe('itemListReducer', () => {
 
@@ -6,20 +6,29 @@ describe('itemListReducer', () => {
 
     const currentState = {
         1: {
-            item: 'Watermelons',
-            position: '1',
+            name: 'Watermelons',
+            imageurl: '',
+            quantity: '5',
+            price: '5',
+            description: 'Juicy Watermelons',
             id: 1
         }, 2: {
             item: 'Rice',
-            position: '2',
+            imageurl: '',
+            quantity: '5',
+            price: '5',
+            description: 'Bags of Rice',
             id: 2
         }
 
     }
 
     const itemData = {
-        item: 'Watermelons',
-        position: '1',
+        name: 'Watermelons',
+        imageurl: '',
+        quantity: '5',
+        price: '5',
+        description: 'Juicy Watermelons',
         id: 1
     };
 
@@ -28,18 +37,24 @@ describe('itemListReducer', () => {
     });
 
     test('Should successfully add new item data to mainItemList', () => {
-        const { item, position, id } = itemData;
+        const { id, imageurl, name, quantity, price, description } = itemData;
         action = {
             type: 'ADD_ITEM',
-            item: item,
-            position: position,
-            key: id
+            imageurl: imageurl,
+            name: name,
+            quantity: quantity,
+            price: price,
+            description: description,
+            id: id
         };
         expect(itemListReducer({}, action)).toEqual({
             [id]: {
-                item: item,
-                position: position,
-                key: id
+                imageurl: imageurl,
+                name: name,
+                quantity: quantity,
+                price: price,
+                description: description,
+                id: id
             }
         });
     });
@@ -52,14 +67,13 @@ describe('itemListReducer', () => {
         expect(itemListReducer(currentState, action)).toEqual({
             2: {
                 item: 'Rice',
-                position: '2',
+                imageurl: '',
+                quantity: '5',
+                price: '5',
+                description: 'Bags of Rice',
                 id: 2
             }
         });
     });
 
 });
-
-// item: item,
-// position: position,
-// key: id
