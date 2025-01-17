@@ -1,71 +1,51 @@
-# Getting Started with Create React App
+Merch site || Reimu's Farmers Market
+=============
+By: Andrew Mickel
+=============
+An app used for mimicking a farmer's market website.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Description
+----------------
+In this project users can create items for "sale". These items will display on the homepage and will include information such as a name, price, image, quantity of stock,
+and descriptiion of the item. This information can also be updated with ease. 
+Items on the Homepage can be added to a "cart" for "purchase", and the stock of items on the homepage will change according to how many items are in the cart.
 
-This project is a mockup of a farmer's market website with a touhou theming. The project has a homepage with a list of items, a cart for items, and pages for updating items on the homepage or adding new items. There is also purchase cart functionality.
-## Available Scripts
+Technologies used
+--------------------
+* JavaScript
+* HTML
+* CSS
+* React
+* Redux
+* Create-React-App
+* Git
 
-In the project directory, you can run:
+Setup/installation instructions
+---------------------
+1. You will need Node.js and npm to run this project properly. I recommend looking [here](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm) for more information.
+2. Download the zip file from the green dropdown menu with the words < > Code on it.
+3. Unzip the file to a folder of your choice.
+4. Open the folder you just unzipped and copy the address to the folder.
+5. Open Command Prompt. You can easily find it on Windows by using the SEARCH button at the bottom left of your screen and typing Command into the searchbar.
+6. To install the needed Node Modules you'll need to navigate to the project folder. In your Command Prompt type `cd` + Space, and then paste the address you copied earlier.
+7. run the command `npm install` in the command prompt window to install the necessary files to run the project.
+8. run the command `npm audit fix` to get rid of the errors that show up.
+9. Once the files are done installing, run the command `npm start` in the command prompt window to start the project.
 
-### `npm start`
+Diagram
+----------------------
+[Diagram of project]
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+![Image of Diagram](/Program-Plan.png)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Known Bugs And Unfinished Behavior
+--------------------
+* Navigation bar does not do anything, it is purely for looks
+* Cart does not work due to changes in code. Needs to be fixed
 
-### `npm test`
+License
+--------------------
+[MIT](./LICENSE.txt) Copyright (c) 2024 Andrew Mickel
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+[Diagram of project]: Program-Plan.png
+[Git bash link]: 
